@@ -10,7 +10,7 @@ namespace FizzBuzz.Logic
             ValuesToPrint val = new ValuesToPrint
             {
                 Id = value,
-                Value = "Buzz"
+                Value = DateTime.Now.DayOfWeek.ToString() == "Wednesday" ? "Wuzz" : "Buzz" 
             };
             return val;
         }

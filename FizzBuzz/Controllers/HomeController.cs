@@ -24,12 +24,15 @@ namespace FizzBuzz.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult GetData(Input input)
         {
-            if (!ModelState.IsValid)
-                 return RedirectToAction("Index", "Home");
-            else
+            if (ModelState.IsValid)
             {
+                
                 List<ValuesToPrint> list = cal.GetValueList(input.Value);
                 return View(list);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
             }
         }
 
