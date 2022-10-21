@@ -1,18 +1,18 @@
-﻿using FizzBuzz.Logic;
+﻿using FizzBuzz.Interfaces;
+using FizzBuzz.Logic;
 using FizzBuzz.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace FizzBuzz.Controllers
 {
-    public class HomeController : Controller
+    public class FizzBuzzController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        Calculation cal = new Calculation();
+        ICalculation _calculation;
 
-        public HomeController(ILogger<HomeController> logger)
+        public FizzBuzzController(ICalculation calculation)
         {
-            _logger = logger;
+            _calculation = calculation;
         }
 
         public IActionResult Index()
@@ -22,17 +22,17 @@ namespace FizzBuzz.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult GetData(Input input)
+        public IActionResult PrintValues(Input input)
         {
             if (ModelState.IsValid)
             {
                 
-                List<ValuesToPrint> list = cal.GetValueList(input.Value);
+                List<ValuesToPrint> list = _calculation.GetValueList(input.Value);
                 return View(list);
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "FizzBuzz");
             }
         }
 

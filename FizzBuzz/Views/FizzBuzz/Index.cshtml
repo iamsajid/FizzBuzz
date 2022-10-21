@@ -30,9 +30,12 @@
                  <div class="row">
                     <div class="col-5"> </div>
                     <div class="col-2">
-                     <input asp-action="getdata" asp-controller="Home" asp-route-Value="Value" type="submit" class="btn btn-primary" />
+                     <input asp-action="PrintValues" asp-controller="FizzBuzz" type="submit" class="btn btn-primary" />
                     </div>
                     <div class="col-5"> </div>  
                  </div>      
     </form>
 </div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

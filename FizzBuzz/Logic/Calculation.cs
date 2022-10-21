@@ -3,7 +3,7 @@ using FizzBuzz.Models;
 
 namespace FizzBuzz.Logic
 {
-    public class Calculation
+    public class Calculation : ICalculation
     {
         public  List<IRule> rules = new List<IRule>()
         {
