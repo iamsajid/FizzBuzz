@@ -1,35 +1,49 @@
-﻿@model List<ValuesToPrint>
+﻿@model FizzBuzz.Logic.PaginatedList<ValuesToPrint>
 @{
     ViewData["Title"] = "Values";
 }
+<form method="post">
+    <table class="table" style="align-content:center">
+        <thead>
+            <tr>
 
-<table class="table" style="align-content:center">
-    <thead>
-        <tr>
-            
-            <th align="center">ID</th>
-            <th align="center"></th>
-           
-            <th align="center"></th> 
-            <th align="center">Value</th>
-        </tr>
-    </thead>
-    <tbody>
-        
-        @foreach (var item in Model) {
-            string color = item.Value == "Fizz" ? "background-color:blue" : item.Value == "Buzz" ? "background-color:green" : "background-color:none"  ;
-            <tr style=@color>             
+                <th align="center">ID</th>
+                <th align="center"></th>
+
+                <th align="center"></th>
+                <th align="center">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                string color = item.Value == "Fizz" ? "background-color:blue" : item.Value == "Buzz" ? "background-color:green" : "background-color:none";
+                <tr style=@color>
                     <td>
                         @Html.DisplayFor(modelItem => item.Id)
                     </td>
-                    <td></td> 
+                    <td></td>
                     <td></td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Value)
                     </td>
-                
-                   
+
+
                 </tr>
-        }
-    </tbody>
-</table>
+            }
+        </tbody>
+    </table>
+
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        var totalnum = Convert.ToInt32(ViewData["value"]);
+    }
+    <button asp-action="PrintValues" asp-controller="FizzBuzz" asp-route-Value="@totalnum" asp-route-pageIndex="@(Model.PageIndex-1)" class="btn btn-default @prevDisabled" type="submit" >
+        Previous
+    </button>
+    <button asp-action="PrintValues" asp-controller="FizzBuzz" asp-route-Value="@totalnum" asp-route-pageIndex="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled" type="submit">
+        Next
+    </button>
+</form>

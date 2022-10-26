@@ -22,13 +22,14 @@ namespace FizzBuzz.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PrintValues(Input input)
+        public IActionResult PrintValues(int Value, int pageIndex=1)
         {
             if (ModelState.IsValid)
             {
-                
-                List<ValuesToPrint> list = _calculation.GetValueList(input.Value);
-                return View(list);
+                ViewData["value"] = Value;
+                int pageSize = 10;
+                List<ValuesToPrint> list = _calculation.GetValueList(Value);
+                return View(PaginatedList<ValuesToPrint>.Create(list,pageIndex,pageSize));
             }
             else
             {
