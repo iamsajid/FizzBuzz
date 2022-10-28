@@ -27,7 +27,7 @@ namespace FizzBuzz.Controllers
             if (ModelState.IsValid)
             {
                 ViewData["value"] = Value;
-                int pageSize = 10;
+                int pageSize = 20;
                 List<ValuesToPrint> list = _calculation.GetValueList(Value);
                 return View(PaginatedList<ValuesToPrint>.Create(list,pageIndex,pageSize));
             }
